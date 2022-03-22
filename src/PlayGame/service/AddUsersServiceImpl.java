@@ -29,8 +29,8 @@ public class AddUsersServiceImpl implements AddUsersService {
     }
 
     void setLeaderBoard(Integer totalPlayers){
-        Map leaderboardMap= new HashMap<>();
-        Map playersMap= new HashMap<>();
+        Map leaderboardMap= new LinkedHashMap<>();
+        Map playersMap= new LinkedHashMap<>();
         String name= CommonConstants.PLAYER_NAME;
         for(int i=1;i<=totalPlayers;i++){
             leaderboardMap.put(name+i,0);
