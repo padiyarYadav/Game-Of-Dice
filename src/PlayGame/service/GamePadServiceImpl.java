@@ -1,5 +1,7 @@
 package PlayGame.service;
 
+import PlayGame.utility.CommonConstants;
+
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -8,9 +10,9 @@ public class GamePadServiceImpl implements GamePadService{
 
     @Override
     public Boolean rollDice(String player)  {
-        System.out.println(player+" please press key r to roll the dice....");
+        System.out.println(player+ CommonConstants.ROLLING_DICE_KEY_MSG);
         String inputString=sc.next();
-        if(inputString.toLowerCase(Locale.ROOT).equals("r"))
+        if(inputString.toLowerCase(Locale.ROOT).equals(CommonConstants.ROLLING_DICE_KEY))
         return true;
         return false;
     }
@@ -22,7 +24,7 @@ public class GamePadServiceImpl implements GamePadService{
 
     @Override
     public Boolean StartGame() {
-        System.out.println("Please press any key to start the game....");
+        System.out.println(CommonConstants.PRESS_KEY_TO_START_MESSAGE);
         sc.nextLine();
         return true;
     }
