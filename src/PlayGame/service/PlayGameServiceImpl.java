@@ -3,6 +3,7 @@ package PlayGame.service;
 import PlayGame.entity.PlayerEntity;
 import PlayGame.repository.DataBase;
 import PlayGame.utility.CommonConstants;
+import PlayGame.utility.GenerateRandomNumber;
 import PlayGame.utility.SortHashMap;
 
 import java.util.*;
@@ -25,7 +26,7 @@ public class PlayGameServiceImpl implements PlayGameService{
                     continue;
                 }
                 do {
-                    diceValue=1;
+                    diceValue= GenerateRandomNumber.getRandomNumber();
                     populatePlayerRepository(player, diceValue);
                 }while (diceValue == CommonConstants.BONUS_TURN_POINT&&DataBase.topPlayerPoint <=CommonConstants.WINNING_POINT);
                 if(DataBase.topPlayerPoint >CommonConstants.WINNING_POINT){
