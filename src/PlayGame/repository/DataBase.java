@@ -2,10 +2,10 @@ package PlayGame.repository;
 
 import PlayGame.entity.PlayerEntity;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class DataBase {
-    public static Map<String, Integer> pointsTableRepository=new HashMap<>();
+    public static Map<String, Integer> pointsTableRepository=new LinkedHashMap<>();
     public static Map<String, PlayerEntity> playerRepository=new HashMap<>();
+    public static Integer topPlayerPoint =0;
 }
