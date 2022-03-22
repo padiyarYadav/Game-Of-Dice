@@ -11,7 +11,7 @@ public class PlayGameServiceImpl implements PlayGameService{
     private static final Scanner sc=new Scanner(System.in);
 
     @Override
-    public Integer RollDice() {
+    public void RollDice() {
         Set<String> playersSet=DataBase.pointsTableRepository.keySet();
 
         do{
@@ -29,8 +29,6 @@ public class PlayGameServiceImpl implements PlayGameService{
                 }
             }
         } while(DataBase.topPlayerPoint <CommonConstants.WINNING_POINT);
-
-        return 0;
     }
 
     public void populatePlayerRepository(String player, Integer diceValue){
