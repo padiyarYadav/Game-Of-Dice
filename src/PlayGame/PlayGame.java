@@ -8,8 +8,5 @@ public class PlayGame {
 
     public static void main(String[] args) {
         addUsersService.addUsers();
-        System.out.println(DataBase.pointsTableRepository);
-        System.out.println(DataBase.playerRepository);
-
     }
 }
