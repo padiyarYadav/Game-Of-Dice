@@ -8,6 +8,7 @@ import java.util.*;
 
 public class AddUsersServiceImpl implements AddUsersService {
     private static final Scanner sc=new Scanner(System.in);
+    private static AddUsersServiceImpl addUsersService=new AddUsersServiceImpl();
 
     @Override
     public void addUsers() {
@@ -25,6 +26,7 @@ public class AddUsersServiceImpl implements AddUsersService {
             setLeaderBoard(totalPlayers);
         }catch (CommonExceptions e){
             System.out.println(e.getMessage());
+            addUsersService.addUsers();
         }
     }
 

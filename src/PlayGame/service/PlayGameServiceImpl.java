@@ -22,7 +22,7 @@ public class PlayGameServiceImpl implements PlayGameService{
 
             for(String player:playersSet){
                 Integer diceValue;
-                Boolean isDiceRolled=false;
+                Boolean isDiceRolled;
                 if(isPlayerPenalised(player)){
 //                    continue or skip players turn
                     continue;
@@ -34,7 +34,7 @@ public class PlayGameServiceImpl implements PlayGameService{
                     }while(!isDiceRolled);
                     diceValue= GenerateRandomNumber.getRandomNumber();
                     populatePlayerRepository(player, diceValue);
-                }while (diceValue == CommonConstants.BONUS_TURN_POINT&&DataBase.topPlayerPoint <=CommonConstants.WINNING_POINT);
+                }while (diceValue == CommonConstants.BONUS_TURN_POINT&&DataBase.topPlayerPoint <CommonConstants.WINNING_POINT);
                 if(DataBase.topPlayerPoint >CommonConstants.WINNING_POINT){
                     break;
                 }
