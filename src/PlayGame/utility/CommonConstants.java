@@ -9,5 +9,7 @@ public class CommonConstants {
     public static final Integer PENALTY_POINT=1;
     public static final Integer WINNING_POINT=20;
     public static final Integer PENALTY_NUMBER_OCCUR_VAL=2;
-
+    public static final String ROLLING_DICE_KEY="r";
+    public static final String ROLLING_DICE_KEY_MSG=" please press key "+ROLLING_DICE_KEY+" to roll the dice....";
+    public static final String PRESS_KEY_TO_START_MESSAGE= "Please press any key to start the game....";
 }
