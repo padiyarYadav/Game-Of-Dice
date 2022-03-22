@@ -1,11 +1,17 @@
 package PlayGame.entity;
 
+import PlayGame.utility.CommonConstants;
+
+import java.util.*;
+
 public class PlayerEntity {
     public PlayerEntity(Integer id, String name) {
         this.id = id;
         this.name = name;
         this.blocked = false;
-        Score = 0;
+        this.Score = 0;
+        this.scoreHistory=new ArrayList<>(CommonConstants.PENALTY_NUMBER_OCCUR_VAL);
+
     }
 
     public Integer getId() {
@@ -44,6 +50,16 @@ public class PlayerEntity {
     private String name;
     private boolean blocked;
     private Integer Score;
+
+    public List<Integer> getScoreHistory() {
+        return scoreHistory;
+    }
+
+    public void setScoreHistory(List<Integer> scoreHistory) {
+        this.scoreHistory = scoreHistory;
+    }
+
+    private List<Integer> scoreHistory;
 
 
 }
