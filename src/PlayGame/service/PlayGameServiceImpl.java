@@ -10,6 +10,7 @@ import java.util.*;
 
 public class PlayGameServiceImpl implements PlayGameService{
     private static final Scanner sc=new Scanner(System.in);
+    private static GamePadServiceImpl gamePadService=new GamePadServiceImpl();
 
     @Override
     public void RollDice() {
@@ -21,11 +22,16 @@ public class PlayGameServiceImpl implements PlayGameService{
 
             for(String player:playersSet){
                 Integer diceValue;
+                Boolean isDiceRolled=false;
                 if(isPlayerPenalised(player)){
 //                    continue or skip players turn
                     continue;
                 }
                 do {
+                    do
+                    {
+                        isDiceRolled=gamePadService.rollDice(player);
+                    }while(!isDiceRolled);
                     diceValue= GenerateRandomNumber.getRandomNumber();
                     populatePlayerRepository(player, diceValue);
                 }while (diceValue == CommonConstants.BONUS_TURN_POINT&&DataBase.topPlayerPoint <=CommonConstants.WINNING_POINT);
@@ -52,6 +58,8 @@ public class PlayGameServiceImpl implements PlayGameService{
         DataBase.playerRepository.get(player).setScore(newPoint);
         populateScoreHistoryLog(DataBase.playerRepository.get(player),diceValue);
         DataBase.pointsTableRepository=SortHashMap.sort(DataBase.pointsTableRepository);
+        System.out.println("******* "+player+" rolled number ("+diceValue+") *******");
+        System.out.println();
         getTopPlayer();
     }
 

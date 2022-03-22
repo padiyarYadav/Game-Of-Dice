@@ -9,5 +9,7 @@ public class CommonConstants {
     public static final Integer PENALTY_POINT=1;
     public static final Integer WINNING_POINT=20;
     public static final Integer PENALTY_NUMBER_OCCUR_VAL=2;
+    public static final String ESC = "\u001B";
+    public static final String BoldOn = ESC + "E" + "\u0001";
 
 }
