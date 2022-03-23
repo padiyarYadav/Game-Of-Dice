@@ -19,7 +19,8 @@ public class GamePadServiceImpl implements GamePadService{
 
     @Override
     public Boolean exitGame() {
-        return null;
+        System.out.println(CommonConstants.EXIT_MSG);
+        return sc.next().toLowerCase(Locale.ROOT).equals(CommonConstants.ROLLING_DICE_KEY);
     }
 
     @Override

@@ -15,5 +15,6 @@ public class CommonConstants {
     public static final String LEADER_BOARD_TITLE ="    Leader board    ";
     public static final String LINE = "+----------+-------+";
     public static final String LEADER_BOARD_HEADING="| Players | Scores |";
+    public static final String EXIT_MSG="Press key R to start the game again.......";
 
 }
