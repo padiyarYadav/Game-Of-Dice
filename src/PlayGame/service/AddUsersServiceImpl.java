@@ -24,6 +24,14 @@ public class AddUsersServiceImpl implements AddUsersService {
             if (totalPlayers < 2)
                 throw new CommonExceptions(CommonConstants.WRONG_PLAYER_NUMBER_MSG);
             setLeaderBoard(totalPlayers);
+
+            System.out.println(CommonConstants.WINNING_SCORE_MSG);
+            temp=sc.next();
+            if(!Validate.isNumeric(temp)){
+                throw new CommonExceptions(CommonConstants.TOTAL_PLAYER_INP_ERR_MSG);
+            }
+            DataBase.winningScore= Integer.valueOf(temp);
+
         }catch (CommonExceptions e){
             System.out.println(e.getMessage());
             addUsersService.addUsers();
