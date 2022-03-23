@@ -4,12 +4,13 @@ import PlayGame.entity.PlayerEntity;
 import PlayGame.repository.DataBase;
 import PlayGame.utility.CommonConstants;
 import PlayGame.utility.GenerateRandomNumber;
+import PlayGame.utility.InputHandler;
 import PlayGame.utility.SortHashMap;
 
 import java.util.*;
 
 public class PlayGameServiceImpl implements PlayGameService{
-    private static final Scanner sc=new Scanner(System.in);
+    private static final Scanner inputHandler = InputHandler.getScannerObject();
     private static GamePadServiceImpl gamePadService=new GamePadServiceImpl();
     private static LeaderBoardServiceImpl leaderBoardService=new LeaderBoardServiceImpl();
 
@@ -123,7 +124,10 @@ public class PlayGameServiceImpl implements PlayGameService{
     private static void getTopPlayer(){
         DataBase.topPlayerPoint=-1;
         DataBase.pointsTableRepository.keySet().stream().forEach(player->{
-            DataBase.topPlayerPoint=DataBase.playerRepository.get(player).isBlocked()?DataBase.topPlayerPoint:DataBase.playerRepository.get(player).getScore();
+            DataBase.topPlayerPoint=DataBase.playerRepository.get(player).isBlocked()&&
+                    DataBase.playerRepository.get(player).getScore()>= DataBase.winningScore?
+                    DataBase.topPlayerPoint:
+                    DataBase.playerRepository.get(player).getScore();
         });
     }
 }
