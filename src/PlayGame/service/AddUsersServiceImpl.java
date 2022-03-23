@@ -7,7 +7,7 @@ import PlayGame.utility.*;
 import java.util.*;
 
 public class AddUsersServiceImpl implements AddUsersService {
-    private static final Scanner sc=new Scanner(System.in);
+    private static final Scanner inputHandler =InputHandler.getScannerObject();
     private static AddUsersServiceImpl addUsersService=new AddUsersServiceImpl();
 
     @Override
@@ -15,7 +15,7 @@ public class AddUsersServiceImpl implements AddUsersService {
         Integer totalPlayers;
         System.out.println(CommonConstants.TOTAL_PLAYER_INP_MSG);
         try {
-            String temp=sc.next();
+            String temp= inputHandler.next();
             if(!Validate.isNumeric(temp)){
                 throw new CommonExceptions(CommonConstants.TOTAL_PLAYER_INP_ERR_MSG);
             }
@@ -26,7 +26,7 @@ public class AddUsersServiceImpl implements AddUsersService {
             setLeaderBoard(totalPlayers);
 
             System.out.println(CommonConstants.WINNING_SCORE_MSG);
-            temp=sc.next();
+            temp= inputHandler.next();
             if(!Validate.isNumeric(temp)){
                 throw new CommonExceptions(CommonConstants.TOTAL_PLAYER_INP_ERR_MSG);
             }
