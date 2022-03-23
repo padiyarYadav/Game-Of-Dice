@@ -12,14 +12,19 @@ public class PlayGame {
     private static LeaderBoardServiceImpl leaderBoardService=new LeaderBoardServiceImpl();
 
     public static void main(String[] args) {
+        do {
+            startGame();
+            addUsersService.addUsers();
+            playGameService.RollDice();
+            leaderBoardService.showLeaderBoard();
+        }while(gamePadService.exitGame());
+    }
+
+    private static void startGame() {
         Boolean isGameStarted;
         do{
             isGameStarted=gamePadService.StartGame();
         }while (!isGameStarted);
-        addUsersService.addUsers();
-        playGameService.RollDice();
-        leaderBoardService.showLeaderBoard();
-
-
     }
+
 }

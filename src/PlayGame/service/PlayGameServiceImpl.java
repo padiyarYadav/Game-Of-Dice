@@ -82,7 +82,7 @@ public class PlayGameServiceImpl implements PlayGameService{
 
 
 
-    public static void getTopPlayer(){
+    private static void getTopPlayer(){
         DataBase.topPlayerPoint = DataBase.pointsTableRepository.values().iterator().next();
     }
 }
