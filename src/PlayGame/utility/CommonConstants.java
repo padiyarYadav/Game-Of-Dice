@@ -18,6 +18,9 @@ public class CommonConstants {
     public static final String WINNING_SCORE_MSG ="Please provide winning score !!!";
     public static final String WINNING_MSG=" won the game.";
     public static final String PENALTY_MESSAGE=" is penalised.";
+    public static final String ROLLED_NUMBER=" rolled number (";
+    public static final String STARS_DESIGN_1="******* ";
+    public static final String STARS_DESIGN_2=") *******";
 
 
 

@@ -12,7 +12,7 @@ public class AddUsersServiceImpl implements AddUsersService {
 
     @Override
     public void addUsers() {
-        Integer totalPlayers=0;
+        Integer totalPlayers;
         System.out.println(CommonConstants.TOTAL_PLAYER_INP_MSG);
         try {
             String temp=sc.next();
@@ -38,6 +38,12 @@ public class AddUsersServiceImpl implements AddUsersService {
         }
     }
 
+    /**
+     *
+     * Sets the leader board
+     *
+     * @param totalPlayers  the total players
+     */
    private static void setLeaderBoard(Integer totalPlayers){
         Map leaderboardMap= new LinkedHashMap<>();
         Map playersMap= new LinkedHashMap<>();
@@ -53,5 +59,6 @@ public class AddUsersServiceImpl implements AddUsersService {
 
     @Override
     public void deleteUser() {
+//       Implement delete user (Future scope)
     }
 }
