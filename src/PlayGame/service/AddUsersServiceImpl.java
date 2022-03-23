@@ -12,7 +12,7 @@ public class AddUsersServiceImpl implements AddUsersService {
 
     @Override
     public void addUsers() {
-        Integer totalPlayers=0;
+        Integer totalPlayers;
         System.out.println(CommonConstants.TOTAL_PLAYER_INP_MSG);
         try {
             String temp=sc.next();
@@ -24,15 +24,29 @@ public class AddUsersServiceImpl implements AddUsersService {
             if (totalPlayers < 2)
                 throw new CommonExceptions(CommonConstants.WRONG_PLAYER_NUMBER_MSG);
             setLeaderBoard(totalPlayers);
+
+            System.out.println(CommonConstants.WINNING_SCORE_MSG);
+            temp=sc.next();
+            if(!Validate.isNumeric(temp)){
+                throw new CommonExceptions(CommonConstants.TOTAL_PLAYER_INP_ERR_MSG);
+            }
+            DataBase.winningScore= Integer.valueOf(temp);
+
         }catch (CommonExceptions e){
             System.out.println(e.getMessage());
             addUsersService.addUsers();
         }
     }
 
+    /**
+     *
+     * Sets the leader board
+     *
+     * @param totalPlayers  the total players
+     */
    private static void setLeaderBoard(Integer totalPlayers){
-        Map leaderboardMap= new LinkedHashMap<>();
-        Map playersMap= new LinkedHashMap<>();
+        Map<String, Integer> leaderboardMap= new LinkedHashMap<>();
+        Map<String, PlayerEntity> playersMap= new LinkedHashMap<>();
         String name= CommonConstants.PLAYER_NAME;
         for(int i=1;i<=totalPlayers;i++){
             leaderboardMap.put(name+i,0);
@@ -45,5 +59,6 @@ public class AddUsersServiceImpl implements AddUsersService {
 
     @Override
     public void deleteUser() {
+//       Implement delete user (Future scope)
     }
 }

@@ -11,6 +11,7 @@ import java.util.*;
 public class PlayGameServiceImpl implements PlayGameService{
     private static final Scanner sc=new Scanner(System.in);
     private static GamePadServiceImpl gamePadService=new GamePadServiceImpl();
+    private static LeaderBoardServiceImpl leaderBoardService=new LeaderBoardServiceImpl();
 
     @Override
     public void RollDice() {
@@ -34,22 +35,45 @@ public class PlayGameServiceImpl implements PlayGameService{
                     }while(!isDiceRolled);
                     diceValue= GenerateRandomNumber.getRandomNumber();
                     populatePlayerRepository(player, diceValue);
-                }while (diceValue == CommonConstants.BONUS_TURN_POINT&&DataBase.topPlayerPoint <CommonConstants.WINNING_POINT);
-                if(DataBase.topPlayerPoint >CommonConstants.WINNING_POINT){
+                    if(DataBase.playerRepository.get(player).getScore() >=DataBase.winningScore){
+                        DataBase.playerRepository.get(player).setBlocked(true);
+                        break;
+                    }
+                }while (diceValue == CommonConstants.BONUS_TURN_POINT);
+                if(DataBase.topPlayerPoint==-1){
                     break;
                 }
             }
-        } while(DataBase.topPlayerPoint <CommonConstants.WINNING_POINT);
+            if(DataBase.topPlayerPoint==-1){
+                break;
+            }
+        } while(DataBase.topPlayerPoint <DataBase.winningScore);
     }
 
+
+    /**
+     *
+     * Is player penalised
+     *
+     * @param player  the player
+     * @return boolean
+     */
     private boolean isPlayerPenalised(String player) {
         if(DataBase.playerRepository.get(player).isBlocked()){
-            DataBase.playerRepository.get(player).setBlocked(false);
+            if(DataBase.playerRepository.get(player).getScore()<DataBase.winningScore)
+                    DataBase.playerRepository.get(player).setBlocked(false);
             return true;
         }
         return false;
     }
 
+    /**
+     *
+     * Populate player repository
+     *
+     * @param player  the player
+     * @param diceValue  the dice value
+     */
     public void populatePlayerRepository(String player, Integer diceValue){
         int currentPoint=DataBase.pointsTableRepository.get(player);
 
@@ -58,11 +82,19 @@ public class PlayGameServiceImpl implements PlayGameService{
         DataBase.playerRepository.get(player).setScore(newPoint);
         populateScoreHistoryLog(DataBase.playerRepository.get(player),diceValue);
         DataBase.pointsTableRepository=SortHashMap.sort(DataBase.pointsTableRepository);
-        System.out.println("******* "+player+" rolled number ("+diceValue+") *******");
+        System.out.println(CommonConstants.STARS_DESIGN_1+player+CommonConstants.ROLLED_NUMBER+diceValue+CommonConstants.STARS_DESIGN_2);
         System.out.println();
         getTopPlayer();
-    }
+        leaderBoardService.showLeaderBoard();
 
+    }
+    /**
+     *
+     * Populate score history log
+     *
+     * @param playerEntity  the player entity
+     * @param diceValue  the dice value
+     */
     private void populateScoreHistoryLog(PlayerEntity playerEntity,Integer diceValue) {
         if(playerEntity.getScoreHistory().size()<CommonConstants.PENALTY_NUMBER_OCCUR_VAL){
             playerEntity.getScoreHistory().add(diceValue);
@@ -75,14 +107,23 @@ public class PlayGameServiceImpl implements PlayGameService{
             if(playerEntity.getScoreHistory().get(i)==CommonConstants.PENALTY_POINT)
                 penaltyCounter++;
         }
-        if(penaltyCounter>=CommonConstants.PENALTY_NUMBER_OCCUR_VAL)
+        if(penaltyCounter>=CommonConstants.PENALTY_NUMBER_OCCUR_VAL) {
+            System.out.println(playerEntity.getName()+CommonConstants.PENALTY_MESSAGE);
             playerEntity.setBlocked(true);
+        }
         return;
         }
 
 
-
+    /**
+     *
+     * Gets the top player from leader board
+     *
+     */
     private static void getTopPlayer(){
-        DataBase.topPlayerPoint = DataBase.pointsTableRepository.values().iterator().next();
+        DataBase.topPlayerPoint=-1;
+        DataBase.pointsTableRepository.keySet().stream().forEach(player->{
+            DataBase.topPlayerPoint=DataBase.playerRepository.get(player).isBlocked()?DataBase.topPlayerPoint:DataBase.playerRepository.get(player).getScore();
+        });
     }
 }
