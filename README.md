@@ -2,8 +2,8 @@
 
 Execute the application
 1. Move into directory Src
-2. Run command javac  .\PlayGame\PlayGame.java 
-3. Run command java .\PlayGame\PlayGame.java 
+2. Run command *javac  .\PlayGame\PlayGame.java* 
+3. Run command *java .\PlayGame\PlayGame.java* 
 
 
 Instructions to play
