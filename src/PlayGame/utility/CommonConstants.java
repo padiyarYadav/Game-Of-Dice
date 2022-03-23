@@ -19,6 +19,8 @@ public class CommonConstants {
     public static final String ROLLED_NUMBER=" rolled number (";
     public static final String STARS_DESIGN_1="******* ";
     public static final String STARS_DESIGN_2=") *******";
+    public static final String GAME_STARTED_MSG="Game Started ";
+    public static final String GAME_OVER_MSG="Game over, Thank you for playing";
 
 //    Intege constants
     public static final Integer DICE_MIN_VAL=1;
