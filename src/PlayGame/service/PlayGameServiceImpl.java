@@ -8,6 +8,7 @@ import PlayGame.utility.InputHandler;
 import PlayGame.utility.SortHashMap;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class PlayGameServiceImpl implements PlayGameService{
     private static final Scanner inputHandler = InputHandler.getScannerObject();
@@ -76,9 +77,16 @@ public class PlayGameServiceImpl implements PlayGameService{
      * @param diceValue  the dice value
      */
     public void populatePlayerRepository(String player, Integer diceValue){
+//      dicevalue=  even
         int currentPoint=DataBase.pointsTableRepository.get(player);
 
+
         Integer newPoint=currentPoint+diceValue;
+
+        if(diceValue%2==0) {
+            newPoint += diceValue;
+            updateOtherPlayersRecord(diceValue,player);
+        }
         DataBase.pointsTableRepository.put(player,newPoint);
         DataBase.playerRepository.get(player).setScore(newPoint);
         populateScoreHistoryLog(DataBase.playerRepository.get(player),diceValue);
@@ -89,6 +97,40 @@ public class PlayGameServiceImpl implements PlayGameService{
         leaderBoardService.showLeaderBoard();
 
     }
+
+    private void updateOtherPlayersRecord(Integer diceValue,String mainPlayer) {
+        List<String> playersList =filterMainPlayer(DataBase.pointsTableRepository.keySet(),mainPlayer);
+        playersList=filterWinners(playersList);
+
+        playersList.stream().forEach(player->{
+
+//            Points table population
+            int currentPoint=DataBase.pointsTableRepository.get(player);
+            currentPoint-=diceValue;
+
+            DataBase.pointsTableRepository.put(player,currentPoint<0?0:currentPoint);
+
+//            User table population
+            currentPoint=DataBase.playerRepository.get(player).getScore();
+            currentPoint-=diceValue;
+            DataBase.playerRepository.get(player).setScore(currentPoint<0?0:currentPoint);
+        });
+        System.out.println("All players point deducted by "+diceValue);
+
+
+    }
+
+    private List<String> filterWinners(List<String> playersList) {
+
+        return playersList.stream().filter(player->
+                DataBase.playerRepository.get(player).getScore()<DataBase.winningScore)
+                .collect(Collectors.toList());
+    }
+
+    private List<String> filterMainPlayer(Set data,String player){
+        return (List<String>) data.stream().filter(p->!p.equals(player)).collect(Collectors.toList());
+    }
+
     /**
      *
      * Populate score history log

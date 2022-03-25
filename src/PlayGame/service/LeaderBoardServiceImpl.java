@@ -9,7 +9,9 @@ public class LeaderBoardServiceImpl implements LeaderBoardService{
         printHeader();
         DataBase.pointsTableRepository.keySet().stream().forEach(player->{
             int len=DataBase.pointsTableRepository.get(player).toString().length();
-            System.out.println("| "+player+" | "+DataBase.pointsTableRepository.get(player)+" ".repeat(6-len)+"|");
+            Boolean winner=DataBase.playerRepository.get(player).getScore()>=DataBase.winningScore;
+            System.out.println("| "+player+" | "+DataBase.pointsTableRepository.get(player)+" ".repeat(6-len)+"|"+
+                    (winner?"Over":""));
         });
         System.out.println(CommonConstants.LINE);
     }
